@@ -28,18 +28,33 @@ class StationList(ListView):
 
 
 @login_required
-def station_entry(request):
-    form = StationForm()
+def station_entry(request, id=0):
     if request.method == 'POST':
-        form = StationForm(request.POST)
+        if id == 0:
+            form = StationForm(request.POST)
+        else:
+            obj = models.Station.objects.get(pk=id)
+            form = StationForm(request.POST, instance=obj)
+
         if form.is_valid():
-            form.updated_by = request.user
-            form.save()
-
-
-
+            obj = form.save(commit=False)
+            obj.updated_by = request.user.staffmember
+            obj.save()
+            return HttpResponseRedirect('/station_list')
+    else:
+        if id == 0:
+            form = StationForm()
+        else:
+            obj = models.Station.objects.get(pk=id)
+            form = StationForm(instance=obj)
 
     context = {
         'stationForm': form,
     }
     return render(request, 'scheduler/station_entry_form.html', context)
+
+
+def station_delete(request, id):
+    station = models.Station.objects.get(pk=id)
+    station.delete()
+    return HttpResponseRedirect('/station_list')

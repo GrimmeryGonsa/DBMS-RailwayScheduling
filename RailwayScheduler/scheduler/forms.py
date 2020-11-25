@@ -5,5 +5,6 @@ from .models import Station
 class StationForm(forms.ModelForm):
     class Meta:
         model = Station
-        fields = '__all__'
+        exclude = ('updated_by',)
+
 

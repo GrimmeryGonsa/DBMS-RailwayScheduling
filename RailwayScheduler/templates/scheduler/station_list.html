@@ -15,7 +15,7 @@
     Occupied Platforms ={{station.occupied_platform}}<br>
     {% if user.is_authenticated  %}
      Updated/added by : {{station.updated_by}}<br>
-    <a href="">edit</a>                            <a href="">delete</a> <br>
+    <a href="{% url 'scheduler:station_update' station.id %}">edit</a>                            <a href="{% url 'scheduler:station_delete' station.id %}">delete</a> <br>
     {% endif %}
     {% endfor %}
     <br>
