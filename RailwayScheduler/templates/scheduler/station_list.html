@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>This is the list of all the stations ....</h1><br>
+
+    {% for station in object_list %}
+    *******************************<br>
+    Name = {{ station.station_name }} <br>
+    Total Platforms = {{station.platform_count}}<br>
+    Occupied Platforms ={{station.occupied_platform}}<br>
+    {% if user.is_authenticated  %}
+     Updated/added by : {{station.updated_by}}<br>
+    <a href="">edit</a>                            <a href="">delete</a> <br>
+    {% endif %}
+    {% endfor %}
+    <br>
+
+    {% if user.is_authenticated  %}
+    <a href="{% url 'scheduler:add_station' %}"><h4>Add another station</h4></a>
+    {% endif %}
+</body>
+</html>
