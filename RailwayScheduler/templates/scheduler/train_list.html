@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is the list of all the trains ....</h1><br>
+
+    {% for obj in object_list %}
+    *******************************<br>
+    Name = {{ obj.train_name }} <br>
+    Category= {{obj.category_id.category_name}}<br>
+    Destination ={{obj.destination_id.station_name}}<br>
+    {% if user.is_authenticated  %}
+     Updated/added by : {{obj.updated_by}}<br>
+    <a href="{%url 'scheduler:train_update' obj.id%}">edit</a>                            <a href="{%url 'scheduler:train_delete' obj.id%}">delete</a> <br>
+    {% endif %}
+    {% endfor %}
+    <br>
+
+    {% if user.is_authenticated  %}
+    <a href="{% url 'scheduler:add_train' %}"><h4>Add another train</h4></a>
+    {% endif %}
+
+    
+</body>
+</html>

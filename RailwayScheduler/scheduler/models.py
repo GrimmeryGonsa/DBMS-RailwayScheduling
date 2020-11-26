@@ -20,7 +20,7 @@ class Route(models.Model):
     end_station_id = models.ForeignKey(Station, on_delete=models.CASCADE, related_name="end")
 
     def __str__(self):
-        return str(self.start_station_id.station_name + " to " + self.end_station_id.statio_name)
+        return str(self.start_station_id.station_name + " to " + self.end_station_id.station_name)
 
 
 class Category(models.Model):
