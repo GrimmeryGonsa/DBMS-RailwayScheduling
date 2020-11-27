@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    This the time-table for station : 
+    <table style="width:100%" border = "1" cellpadding = "5" cellspacing = "5">
+        <tr>
+            <th>train_name</th>
+            <th>station_name</th>
+            <th>date</th>
+            <th>arrival time</th>
+            <th>departure time</th>
+        </tr>
+    {% for table in schedule %}
+        <tr>
+            <td>{{table.train_id.train_name}}</td>
+            <td>{{table.station_id.station_name}}</td>
+            <td>{{table.date}}</td>
+            <td>{{table.arrival_time}}</td>
+            <td>{{table.departure_time}}</td>
+        </tr>
+        
+     {%endfor %}
+    </table>
+
+    
+    
+</body>
+</html>

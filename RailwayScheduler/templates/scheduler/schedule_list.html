@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>This is the list of schedule of all the stations ....</h1><br>
+
+    {% for schedule in object_list %}
+    *******************************<br>
+     Station Name = {{ schedule.station_id.station_name }} <br>
+     Train Name ={{ schedule.train_id.train_name }}<br>
+     date = {{schedule.date}}<br>
+     arrival time ={{schedule.arrival_time}}<br>
+     departure time = {{ schedule.departure_time }}<br>
+
+    {% if user.is_authenticated  %}
+     Updated/added by : {{schedule.updated_by}}<br>
+    <a href="{%url 'scheduler:update_schedule' schedule.id%}">edit</a>                            <a href="{%url 'scheduler:delete_schedule' schedule.id%}">delete</a> <br>
+    {% endif %}
+    {% endfor %}
+    <br>
+
+    {% if user.is_authenticated  %}
+    <a href="{% url 'scheduler:add_schedule' %}"><h4>Add another Schedule</h4></a>
+    {% endif %}
+    
+</body>
+</html>

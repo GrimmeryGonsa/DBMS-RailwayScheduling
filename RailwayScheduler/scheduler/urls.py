@@ -14,8 +14,10 @@ urlpatterns = [
     path('add_train/', views.train_entry, name='add_train'),
     path('train/<int:id>/', views.train_entry, name='train_update'),
     path('delete_train/<int:id>/', views.train_delete, name='train_delete'),
-
-
-
+    path('station/schedule/<int:id>/', views.station_time_table, name='station_schedule'),
+    path('schedule_list/', views.ScheduleList.as_view(), name='schedule_list'),
+    path('add_schedule/', views.schedule_entry, name='add_schedule'),
+    path('schedule/<int:id>/', views.schedule_entry, name='update_schedule'),
+    path('delete_schedule/<int:id>/', views.station_delete, name='delete_schedule'),
 
 ]

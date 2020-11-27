@@ -5,6 +5,7 @@ from . import models
 from django.contrib.auth.decorators import login_required
 from .forms import StationForm
 from .forms import TrainForm
+from .forms import ScheduleForm
 from django.http.response import HttpResponseRedirect
 
 
@@ -94,7 +95,55 @@ def train_entry(request, id=0):
     return render(request, 'scheduler/train_entry_form.html', context)
 
 
+@login_required
 def train_delete(request, id):
-    train=models.Train.objects.get(pk=id)
+    train = models.Train.objects.get(pk=id)
     train.delete()
     return HttpResponseRedirect('/train_list')
+
+
+def station_time_table(request, id):
+    time_table = models.Schedule.objects.filter(station_id=id).order_by('date')
+    context = {
+        'schedule': time_table,
+    }
+    return render(request, 'scheduler/station_schedule.html', context)
+
+
+class ScheduleList(ListView):
+    model = models.Schedule
+    template_name = 'templates/scheduler/schedule_list.html'
+
+
+@login_required
+def schedule_entry(request, id=0):
+    if request.method == 'POST':
+        if id == 0:
+            form = ScheduleForm(request.POST)
+        else:
+            obj = models.Schedule.objects.get(pk=id)
+            form = ScheduleForm(request.POST, instance=obj)
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.updated_by = request.user.staffmember
+            obj.save()
+            return HttpResponseRedirect('/schedule_list')
+    else:
+        if id == 0:
+            form = ScheduleForm()
+        else:
+            obj = models.Schedule.objects.get(pk=id)
+            form = ScheduleForm(instance=obj)
+
+    context = {
+        'ScheduleForm': form,
+    }
+    return render(request, 'scheduler/schedule_entry_form.html', context)
+
+
+@login_required
+def schedule_delete(request, id):
+    schedule = models.Schedule.objects.get(pk=id)
+    schedule.delete()
+    return HttpResponseRedirect('/schedule_list')

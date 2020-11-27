@@ -17,6 +17,7 @@
      Updated/added by : {{station.updated_by}}<br>
     <a href="{% url 'scheduler:station_update' station.id %}">edit</a>                            <a href="{% url 'scheduler:station_delete' station.id %}">delete</a> <br>
     {% endif %}
+    <a href="{% url 'scheduler:station_schedule' station.id %}"> Station Schedule</a>
     {% endfor %}
     <br>
 

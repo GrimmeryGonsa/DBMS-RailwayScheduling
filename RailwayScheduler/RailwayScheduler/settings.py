@@ -85,7 +85,6 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
 
-
     }
 }
 
@@ -127,3 +126,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/authenticate/account/dashboard'
 LOGIN_URL = '/authenticate/login'
 LOGOUT_URL = '/authenticate/logout'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+This is schedule update/add form:
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ScheduleForm.as_p}}
+    <input type="submit">
+</form>
+
+</body>
+</html>

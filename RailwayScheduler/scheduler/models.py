@@ -48,13 +48,13 @@ class SeatChart(models.Model):
     ac = models.PositiveIntegerField()
     sleeper = models.PositiveIntegerField()
     general = models.PositiveIntegerField()
-    train_id = models.OneToOneField(Train, on_delete=models.CASCADE)
+    train_id = models.ForeignKey(Train, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (("date", "train_id"),)
 
     def __str__(self):
-        return str(self.train_id.train_name + " of " + self.date)
+        return str(self.train_id.train_name + " of " + str(self.date))
 
 
 class Schedule(models.Model):
@@ -66,7 +66,7 @@ class Schedule(models.Model):
     updated_by = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = (("station_id", "date"),)
+        unique_together = (("station_id", "date", "train_id"),)
 
     def __str__(self):
-        return str(self.date + " " + self.date)
+        return str(self.station_id.station_name + " " + str(self.date))
