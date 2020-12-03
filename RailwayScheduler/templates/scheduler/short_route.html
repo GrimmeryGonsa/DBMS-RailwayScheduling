@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+This is the shortest route calculator:
+<form method = "POST">
+    {% csrf_token %}
+    {{ShortRouteForm.as_p}}
+    <input type="submit">
+</form>
+
+{% ifequal sol  1 %}
+
+    For shortest route train should visit in this order
+<ul>
+    {% for so in solution %}
+
+
+    <li>{{ so }}</li>
+    {% endfor %}
+</ul>
+
+{% endifequal %}
+
+
+</body>
+</html>

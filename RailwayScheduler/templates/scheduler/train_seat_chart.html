@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+This is seat chart...
+<table style="width:100%" border = "1" cellpadding = "5" cellspacing = "5">
+        <tr>
+            <th>date</th>
+            <th>train name</th>
+            <th>first class</th>
+            <th>Second class</th>
+            <th>A.C.</th>
+            <th>Sleeper</th>
+            <th>General</th>
+        </tr>
+    {% for table in chart %}
+        <tr>
+            <td>{{table.date}}</td>
+            <td>{{table.train_id.train_name}}</td>
+            <td>{{table.first_class}}</td>
+            <td>{{table.second_class}}</td>
+            <td>{{table.ac}}</td>
+            <td>{{table.sleeper}}</td>
+            <td>{{table.general}}</td>
+        </tr>
+
+     {%endfor %}
+    </table>
+</body>
+</html>

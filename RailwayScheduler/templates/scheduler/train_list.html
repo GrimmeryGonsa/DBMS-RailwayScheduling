@@ -17,6 +17,7 @@
      Updated/added by : {{obj.updated_by}}<br>
     <a href="{%url 'scheduler:train_update' obj.id%}">edit</a>                            <a href="{%url 'scheduler:train_delete' obj.id%}">delete</a> <br>
     {% endif %}
+    <a href ="{%  url 'scheduler:train_seat_chart' obj.id %}"> Show Seat Chart </a>
     {% endfor %}
     <br>
 

@@ -70,3 +70,5 @@ class Schedule(models.Model):
 
     def __str__(self):
         return str(self.station_id.station_name + " " + str(self.date))
+
+

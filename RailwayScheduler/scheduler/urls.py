@@ -19,5 +19,7 @@ urlpatterns = [
     path('add_schedule/', views.schedule_entry, name='add_schedule'),
     path('schedule/<int:id>/', views.schedule_entry, name='update_schedule'),
     path('delete_schedule/<int:id>/', views.station_delete, name='delete_schedule'),
+    path('shortest_route/', views.shortest_path, name='shortest_path'),
+    path('train/train_seat_chart/<int:id>/',views.train_seat_chart, name="train_seat_chart"),
 
 ]

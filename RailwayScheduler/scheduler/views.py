@@ -6,10 +6,14 @@ from django.contrib.auth.decorators import login_required
 from .forms import StationForm
 from .forms import TrainForm
 from .forms import ScheduleForm
-from django.http.response import HttpResponseRedirect
+from .forms import ShortestRouteForm
+from django.http.response import HttpResponseRedirect, HttpResponse
+from collections import deque, namedtuple
 
 
 # Create your views here.
+
+
 def index(request):
     return render(request, "scheduler/index.html")
 
@@ -147,3 +151,136 @@ def schedule_delete(request, id):
     schedule = models.Schedule.objects.get(pk=id)
     schedule.delete()
     return HttpResponseRedirect('/schedule_list')
+
+
+inf = float('inf')
+Edge = namedtuple('Edge', 'start, end, cost')
+
+
+def make_edge(start, end, cost=1):
+    return Edge(start, end, cost)
+
+
+class Graph:
+    def __init__(self, edges):
+        wrong_edges = [i for i in edges if len(i) not in [2, 3]]
+        if wrong_edges:
+            raise ValueError('Wrong edges data: {}'.format(wrong_edges))
+
+        self.edges = [make_edge(*edge) for edge in edges]
+
+    @property
+    def vertices(self):
+        return set(
+            sum(
+                ([edge.start, edge.end] for edge in self.edges), []
+            )
+        )
+
+    def get_node_pairs(self, n1, n2, both_ends=True):
+        if both_ends:
+            node_pairs = [[n1, n2], [n2, n1]]
+        else:
+            node_pairs = [[n1, n2]]
+        return node_pairs
+
+    def remove_edge(self, n1, n2, both_ends=True):
+        node_pairs = self.get_node_pairs(n1, n2, both_ends)
+        edges = self.edges[:]
+        for edge in edges:
+            if [edge.start, edge.end] in node_pairs:
+                self.edges.remove(edge)
+
+    def add_edge(self, n1, n2, cost=1, both_ends=True):
+        node_pairs = self.get_node_pairs(n1, n2, both_ends)
+        for edge in self.edges:
+            if [edge.start, edge.end] in node_pairs:
+                return ValueError('Edge {} {} already exists'.format(n1, n2))
+
+        self.edges.append(Edge(start=n1, end=n2, cost=cost))
+        if both_ends:
+            self.edges.append(Edge(start=n2, end=n1, cost=cost))
+
+    @property
+    def neighbours(self):
+        neighbours = {vertex: set() for vertex in self.vertices}
+        for edge in self.edges:
+            neighbours[edge.start].add((edge.end, edge.cost))
+
+        return neighbours
+
+    def dijkstra(self, source, dest):
+        assert source in self.vertices, 'Such source node doesn\'t exist'
+        distances = {vertex: inf for vertex in self.vertices}
+        previous_vertices = {
+            vertex: None for vertex in self.vertices
+        }
+        distances[source] = 0
+        vertices = self.vertices.copy()
+
+        while vertices:
+            current_vertex = min(
+                vertices, key=lambda vertex: distances[vertex])
+            vertices.remove(current_vertex)
+            if distances[current_vertex] == inf:
+                break
+            for neighbour, cost in self.neighbours[current_vertex]:
+                alternative_route = distances[current_vertex] + cost
+                if alternative_route < distances[neighbour]:
+                    distances[neighbour] = alternative_route
+                    previous_vertices[neighbour] = current_vertex
+
+        path, current_vertex = deque(), dest
+        while previous_vertices[current_vertex] is not None:
+            path.appendleft(current_vertex)
+            current_vertex = previous_vertices[current_vertex]
+        if path:
+            path.appendleft(current_vertex)
+        return path
+
+
+def shortest_path(request):
+    if request.method == 'POST':
+        form = ShortestRouteForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            start = obj.start_station_id
+            end = obj.end_station_id
+            all_obj = models.Route.objects.all()
+            li = []
+            li2 = []
+            li3 = []
+            for stuff in all_obj:
+                li.append(str(stuff.start_station_id))
+                li2.append(str(stuff.end_station_id))
+                li3.append(stuff.distance_in_km)
+
+            op = list(zip(li, li2, li3))
+            graph = Graph(op)
+            print(start)
+            print(end)
+            context = {
+                "ShortRouteForm": form,
+                "sol": 1,
+                "solution": list(graph.dijkstra(str(start), str(end))),
+            }
+
+            return render(request, "scheduler/short_route.html", context)
+
+    else:
+        form = ShortestRouteForm()
+
+    context = {
+        "ShortRouteForm": form,
+        "sol": 0,
+    }
+
+    return render(request, "scheduler/short_route.html", context)
+
+
+def train_seat_chart(request, id):
+    seat_chart = models.SeatChart.objects.filter(train_id=id).order_by('date')
+    context = {
+        'chart': seat_chart,
+    }
+    return render(request, 'scheduler/train_seat_chart.html', context)
