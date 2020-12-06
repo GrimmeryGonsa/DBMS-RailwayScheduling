@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Legacy</title>
+</head>
+<body>
+ List of out of service train....
+<table>
+    <thead>
+    <tr>
+    <td>Old Train id </td>
+    <td> Train name </td>
+    <td> Destination </td>
+    <td> Route </td>
+    </tr>
+    </thead>
+    <TBODY>
+    {% for train in object_list %}
+    <tr>
+    <td>{{train.old_train_id}}</td>
+    <td>{{train.train_name}}</td>
+    <td>{{train.destination}}</td>
+    <td>{{train.route_id}}</td>
+    </tr>
+    {% endfor %}
+    </TBODY>
+</table>
+
+</body>
+</html>

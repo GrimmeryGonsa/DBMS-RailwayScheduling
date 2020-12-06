@@ -284,3 +284,8 @@ def train_seat_chart(request, id):
         'chart': seat_chart,
     }
     return render(request, 'scheduler/train_seat_chart.html', context)
+
+
+class LegacyList(ListView):
+    model = models.TrainLegacy
+    template_name = 'scheduler/legacy.html'

@@ -20,6 +20,7 @@ urlpatterns = [
     path('schedule/<int:id>/', views.schedule_entry, name='update_schedule'),
     path('delete_schedule/<int:id>/', views.station_delete, name='delete_schedule'),
     path('shortest_route/', views.shortest_path, name='shortest_path'),
-    path('train/train_seat_chart/<int:id>/',views.train_seat_chart, name="train_seat_chart"),
+    path('train/train_seat_chart/<int:id>/', views.train_seat_chart, name="train_seat_chart"),
+    path('legacy/', views.LegacyList.as_view(), name='legacy_list'),
 
 ]

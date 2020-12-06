@@ -28,8 +28,10 @@
     <li><a class="social tumblr" href="{% url 'scheduler:train_list' %}">Edit Trains</a></li>
     <li><a class="social facebook" href="{% url 'scheduler:station_list' %}">Edit Stations</a></li>
     <li><a class="social github" href="{% url 'scheduler:schedule_list' %}">Edit Timetables</a></li>
-    <li><a class="social scriptogram" href="{%url 'authenticate:logout'%}">Logout</a></li>
     <li><a class="social twitter" href="{% url 'scheduler:shortest_path' %}">Shortest route Calculator</a></li>
+	<li><a class="social google" href="{% url 'scheduler:legacy_list' %}">Out of Service trains</a></li>
+	<li><a class="social scriptogram" href="{%url 'authenticate:logout'%}">Logout</a></li>
+
   </ul>
 </nav>
 <script src="{% static 'js/dashboard.js' %"></script>
