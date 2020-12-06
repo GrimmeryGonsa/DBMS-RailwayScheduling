@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dashboard</title>
+</head>
+<body>
+ {% if request.user.is_authenticated %}
+     Your contact is {{user.staffmember.contact}}
+    <ul class ="menu">
+        <li>opt-1</li>
+        <li>opt-2</li>
+    </ul>
+ {% endif %}
+
+<p>welcome to dashboard</p>
+<ul>
+    <li><a href="{% url 'scheduler:profile' %}" >Go to your detail page</a></li>
+    <li><a href="{% url 'scheduler:train_list' %}">Edit trains</a> </li>
+    <li><a href="{% url 'scheduler:station_list' %}">Edit stations </a></li>
+    <li><a href="{% url 'scheduler:schedule_list' %}">Edit timetables </a></li>
+    <li><a href="{%url 'authenticate:logout'%}">Logout</a> </li>
+    <li><a href="{% url 'scheduler:shortest_path' %}">Shortest Route Calculator</a></li>
+</ul>
+
+</body>
+</html>

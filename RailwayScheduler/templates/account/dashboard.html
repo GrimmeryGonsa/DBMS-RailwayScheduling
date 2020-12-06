@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>dashboard</title>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+
 </head>
 <body>
- {% if request.user.is_authenticated %}
-     Your contact is {{user.staffmember.contact}}
-    <ul class ="menu">
-        <li>opt-1</li>
-        <li>opt-2</li>
-    </ul>
- {% endif %}
+<svg viewBox="0 0 960 300">
+	<symbol id="s-text">
+		<text text-anchor="middle" x="50%" y="80%">Dashboard</text>
+	</symbol>
 
-<p>welcome to dashboard</p>
-<ul>
-    <li><a href="{% url 'scheduler:profile' %}" >Go to your detail page</a></li>
-    <li><a href="{% url 'scheduler:train_list' %}">Edit trains</a> </li>
-    <li><a href="{% url 'scheduler:station_list' %}">Edit stations </a></li>
-    <li><a href="{% url 'scheduler:schedule_list' %}">Edit timetables </a></li>
-    <li><a href="{%url 'authenticate:logout'%}">Logout</a> </li>
-    <li><a href="{% url 'scheduler:shortest_path' %}">Shortest Route Calculator</a></li>
-</ul>
+	<g class = "g-ants">
+		<use xlink:href="#s-text" class="text-copy"></use>
+		<use xlink:href="#s-text" class="text-copy"></use>
+		<use xlink:href="#s-text" class="text-copy"></use>
+		<use xlink:href="#s-text" class="text-copy"></use>
+		<use xlink:href="#s-text" class="text-copy"></use>
+	</g>
+</svg>
 
+
+<nav>
+  <ul>
+    <li><a class="social google" href="{% url 'scheduler:profile' %}">Go To Details Page</a></li>
+    <li><a class="social tumblr" href="{% url 'scheduler:train_list' %}">Edit Trains</a></li>
+    <li><a class="social facebook" href="{% url 'scheduler:station_list' %}">Edit Stations</a></li>
+    <li><a class="social github" href="{% url 'scheduler:schedule_list' %}">Edit Timetables</a></li>
+    <li><a class="social scriptogram" href="{%url 'authenticate:logout'%}">Logout</a></li>
+    <li><a class="social twitter" href="{% url 'scheduler:shortest_path' %}">Shortest route Calculator</a></li>
+  </ul>
+</nav>
+<script src="{% static 'js/dashboard.js' %"></script>
 </body>
 </html>

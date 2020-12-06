@@ -7,8 +7,7 @@ from authenticate.models import StaffMember
 class Station(models.Model):
     station_name = models.CharField(max_length=100)
     platform_count = models.PositiveIntegerField()
-    updated_by = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
-    occupied_platform = models.PositiveIntegerField(default=0)
+    updated_by = models.ForeignKey(StaffMember, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.station_name
@@ -32,10 +31,10 @@ class Category(models.Model):
 
 class Train(models.Model):
     train_name = models.CharField(max_length=100)
-    updated_by = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(StaffMember, on_delete=models.SET_NULL, null=True)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    destination_id = models.ForeignKey(Station, on_delete=models.CASCADE)
-    route_id = models.ForeignKey(Route, on_delete=models.CASCADE)
+    destination_id = models.ForeignKey(Station, on_delete=models.SET_NULL, null=True)
+    route_id = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.train_name
@@ -49,6 +48,7 @@ class SeatChart(models.Model):
     sleeper = models.PositiveIntegerField()
     general = models.PositiveIntegerField()
     train_id = models.ForeignKey(Train, on_delete=models.CASCADE)
+    total_seats = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         unique_together = (("date", "train_id"),)
@@ -63,7 +63,7 @@ class Schedule(models.Model):
     date = models.DateField()
     arrival_time = models.TimeField()
     departure_time = models.TimeField()
-    updated_by = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(StaffMember, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         unique_together = (("station_id", "date", "train_id"),)
@@ -72,3 +72,11 @@ class Schedule(models.Model):
         return str(self.station_id.station_name + " " + str(self.date))
 
 
+class TrainLegacy(models.Model):
+    old_train_id = models.PositiveIntegerField()
+    train_name = models.CharField(max_length=100)
+    destination = models.CharField(max_length=100)
+    route_id = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.train_name

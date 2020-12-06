@@ -1,0 +1,181 @@
+
+
+@import 'https://fonts.googleapis.com/css?family=Ubuntu+Condensed';
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  height: auto;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+}
+
+body {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  height: 100%;
+  font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.social {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+  background-color: rgba(231, 231, 231, 0.6);
+  box-shadow: 8px 8px 0 0px rgba(0, 0, 0, 0.25);
+}
+
+nav {
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  position: absolute;
+  bottom: 10px;
+  left: 250px;
+  width: 30%;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a:hover {
+  opacity: 0.7;
+}
+
+nav ul li a.email {
+  border-left: 50px solid #0B8459;
+  color: #0B8459;
+}
+
+nav ul li a.twitter {
+  border-left: 50px solid #0B8459;
+  color: #0B8459;
+}
+
+nav ul li a.facebook {
+  border-left: 50px solid #365998;
+  color: #365998;
+}
+
+nav ul li a.github {
+  border-left: 50px solid #05093D;
+  color: #05093D;
+}
+
+nav ul li a.google {
+  border-left: 50px solid #042C14;
+  color: #042C14;
+}
+
+nav ul li a.instagram {
+  border-left: 50px solid #520404;
+  color: #520404;
+}
+
+nav ul li a.tumblr {
+  border-left: 50px solid #270433;
+  color: #270433;
+}
+
+nav ul li a.scriptogram {
+  border-left: 50px solid #640000;
+  color: #640000;
+}
+
+nav ul li a.linkedin {
+  border-left: 50px solid #0B8459;
+  color: #0B8459;
+}
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+html, body{
+  box-sizing: border-box;
+  font-size: var(--htmlFontSize);
+  height: 100%;
+  background: url(https://i.pinimg.com/originals/88/3f/56/883f56e3446f241d30ef7f96ac858db0.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  font-weight: 800;
+}
+
+body{
+  font-family: Arial;
+}
+
+svg {
+    display: block;
+    font: 10.5em 'Montserrat';
+    width: 960px;
+    height: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0px;
+    left: 250px;
+}
+
+.text-copy {
+    fill: none;
+    stroke: white;
+    stroke-dasharray: 6% 29%;
+    stroke-width: 5px;
+    stroke-dashoffset: 0%;
+    animation: stroke-offset 5.5s infinite linear;
+}
+
+.text-copy:nth-child(1){
+  stroke: #541206;
+  animation-delay: -1;
+}
+
+.text-copy:nth-child(2){
+  stroke: #053A08;
+  animation-delay: -2s;
+}
+
+.text-copy:nth-child(3){
+  stroke: #020323;
+  animation-delay: -3s;
+}
+
+.text-copy:nth-child(4){
+  stroke: #120223;
+  animation-delay: -4s;
+}
+
+.text-copy:nth-child(5){
+  stroke: #230211;
+  animation-delay: -5s;
+}
+
+@keyframes stroke-offset{
+  100% {stroke-dashoffset: -35%;}
+}
+
+
