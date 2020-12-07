@@ -22,5 +22,10 @@ urlpatterns = [
     path('shortest_route/', views.shortest_path, name='shortest_path'),
     path('train/train_seat_chart/<int:id>/', views.train_seat_chart, name="train_seat_chart"),
     path('legacy/', views.LegacyList.as_view(), name='legacy_list'),
+    path('add_seat_chart/', views.seat_chart_entry, name='seat_chart_entry'),
+    path('add_seat_chart/<int:id>/', views.seat_chart_entry, name='update_seat_chart_entry'),
+    path('delete_seat_chart/<int:id>/',views.seat_chart_delete, name='delete_seat_chart_entry'),
+
+
 
 ]

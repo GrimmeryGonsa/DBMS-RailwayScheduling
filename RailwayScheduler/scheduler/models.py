@@ -49,6 +49,7 @@ class SeatChart(models.Model):
     general = models.PositiveIntegerField()
     train_id = models.ForeignKey(Train, on_delete=models.CASCADE)
     total_seats = models.PositiveIntegerField(null=True, blank=True)
+    updated_by = models.ForeignKey(StaffMember, null=True, blank=True,on_delete=models.SET_NULL)
 
     class Meta:
         unique_together = (("date", "train_id"),)
@@ -76,7 +77,7 @@ class TrainLegacy(models.Model):
     old_train_id = models.PositiveIntegerField()
     train_name = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
-    route_id = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True)
+    route_id = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True, default=1)
 
     def __str__(self):
         return self.train_name

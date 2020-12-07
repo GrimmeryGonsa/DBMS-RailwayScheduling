@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<title>Profile</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 </head>
 <body>
-    <h1>This is the profile view</h1>
-       <p> name :{{user.first_name}}<br>
-        email :{{user.email}}<br>
-        contact number :{{user.staffmember.contact}}<br>
-        **********************************************************
-       </p>
+<p>This is Profile View</p>
+<h1><pre>
+	Name  {{user.first_name}} {{user.last_name}}
+	Email  {{user.email}}
+       Contact {{user.staffmember.contact}} </pre></h1>
 
-        <a href="{% url 'authenticate:dashboard' %}">Return to dashboard</a>
-
-        
 </body>
 </html>

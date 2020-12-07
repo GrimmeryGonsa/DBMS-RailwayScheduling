@@ -3,6 +3,7 @@ from .models import Station
 from .models import Train
 from .models import Schedule
 from .models import Route
+from .models import SeatChart
 
 
 class StationForm(forms.ModelForm):
@@ -22,14 +23,14 @@ class ScheduleForm(forms.ModelForm):
         model = Schedule
         exclude = ('updated_by',)
 
-    ##def clean(self):
-    ##data = self.cleaned_data
-    ##arrival = data['arrival_time']
-    ##station_id = data['station_id']
-    ##schedule = Station.objects.filter(station_id)
-
 
 class ShortestRouteForm(forms.ModelForm):
     class Meta:
         model = Route
         exclude = ("distance_in_km",)
+
+
+class SeatChartForm(forms.ModelForm):
+    class Meta:
+        model = SeatChart
+        exclude = ('updated_by', 'total_seats',)

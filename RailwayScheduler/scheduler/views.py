@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import StationForm
 from .forms import TrainForm
 from .forms import ScheduleForm
-from .forms import ShortestRouteForm
+from .forms import ShortestRouteForm, SeatChartForm
 from django.http.response import HttpResponseRedirect, HttpResponse
 from collections import deque, namedtuple
 
@@ -289,3 +289,37 @@ def train_seat_chart(request, id):
 class LegacyList(ListView):
     model = models.TrainLegacy
     template_name = 'scheduler/legacy.html'
+
+
+@login_required
+def seat_chart_entry(request, id=0):
+    if request.method == 'POST':
+        if id == 0:
+            form = SeatChartForm(request.POST)
+        else:
+            obj = models.SeatChart.objects.get(pk=id)
+            form = SeatChartForm(request.POST, instance=obj)
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.updated_by = request.user.staffmember
+            obj.save()
+            return HttpResponseRedirect('/train_list')
+    else:
+        if id == 0:
+            form = SeatChartForm()
+        else:
+            obj = models.SeatChart.objects.get(pk=id)
+            form = SeatChartForm(instance=obj)
+
+    context = {
+        'seatChartForm': form,
+    }
+    return render(request, 'scheduler/seatchart_entry_form.html', context)
+
+@login_required
+def seat_chart_delete(request, id):
+    seat_chart = models.SeatChart.objects.get(pk=id)
+    seat_chart.delete()
+    return HttpResponseRedirect('/train_list')
+

@@ -59,6 +59,13 @@
       <th scope="col"> AC </th>
       <th scope="col"> General </th>
       <th scope ="col"> Total Seats </th>
+        {% if user.is_authenticated %}
+      <th scope="col">Updated By</th>
+      <th scope="col"><a href="{% url 'scheduler:seat_chart_entry' %}" class="btn btn-outline-success" >
+                        <i class= "fas fa-plus"></i> Add New
+                    </a></th>
+        {% endif %}
+
 
     </tr>
   </thead>
@@ -73,6 +80,11 @@
      <td>{{table.ac}}</td>
      <td>{{table.general}}</td>
      <td>{{table.total_seats}}</td>
+     {% if user.is_authenticated %}
+       <td>{{table.updated_by}}</td>
+       <td><a href="{% url 'scheduler:delete_seat_chart_entry' table.id %}" ><i class="fa fa-trash"></i></a>
+        <a href="{% url 'scheduler:update_seat_chart_entry' table.id %}" > <i class="fas fa-edit"></i></a></td>
+     {% endif %}
    </tr>
   {% endfor %}
 </tbody>
