@@ -229,11 +229,11 @@ p {
 
 /* Background image */
 
-html {
+html, body {
   box-sizing: border-box;
   font-size: var(--htmlFontSize);
   height: 100%;
-  background: url(https://i.pinimg.com/originals/88/3f/56/883f56e3446f241d30ef7f96ac858db0.jpg) no-repeat center center fixed; 
+  background: url(https://cdn.wallpapersafari.com/3/64/wXQt5L.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

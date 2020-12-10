@@ -6,6 +6,10 @@ from .models import Route
 from .models import SeatChart
 
 
+class DateIp(forms.DateInput):
+    input_type = 'date'
+
+
 class StationForm(forms.ModelForm):
     class Meta:
         model = Station
@@ -34,3 +38,53 @@ class SeatChartForm(forms.ModelForm):
     class Meta:
         model = SeatChart
         exclude = ('updated_by', 'total_seats',)
+        widgets = {'date': DateIp()}
+
+    def __init__(self, *args, **kwargs):
+        super(SeatChartForm, self).__init__(*args, *kwargs)
+
+        first_class = forms.IntegerField(widget=forms.TextInput(attrs={
+            "type": "text",
+            "id": "class",
+            "name": "class",
+            "placeholder": "Seats",
+
+        }))
+
+        second_class = forms.IntegerField(widget=forms.TextInput(attrs={
+            "type": "text",
+            "id": "class",
+            "name": "class",
+            "placeholder": "Seats",
+
+        }))
+        general = forms.IntegerField(widget=forms.TextInput(attrs={
+            "type": "text",
+            "id": "class",
+            "name": "class",
+            "placeholder": "Seats",
+
+        }))
+
+        ac = forms.IntegerField(widget=forms.TextInput(attrs={
+            "type": "text",
+            "id": "class",
+            "name": "class",
+            "placeholder": "Seats",
+
+        }))
+
+        sleeper = forms.IntegerField(widget=forms.TextInput(attrs={
+            "type": "text",
+            "id": "class",
+            "name": "class",
+            "placeholder": "Seats",
+
+        }))
+
+        train_id = forms.CharField(widget=forms.TextInput(attrs={
+            "type": "id",
+            "id": "class",
+            "name": "id",
+            "placeholder": "Train",
+        }))
