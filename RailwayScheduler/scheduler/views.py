@@ -317,9 +317,9 @@ def seat_chart_entry(request, id=0):
     }
     return render(request, 'scheduler/seatchart_entry_form.html', context)
 
+
 @login_required
 def seat_chart_delete(request, id):
     seat_chart = models.SeatChart.objects.get(pk=id)
     seat_chart.delete()
     return HttpResponseRedirect('/train_list')
-

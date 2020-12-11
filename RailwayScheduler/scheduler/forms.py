@@ -10,6 +10,10 @@ class DateIp(forms.DateInput):
     input_type = 'date'
 
 
+class TimeIp(forms.TimeInput):
+    input_type = 'time'
+
+
 class StationForm(forms.ModelForm):
     class Meta:
         model = Station
@@ -26,6 +30,11 @@ class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
         exclude = ('updated_by',)
+        widgets = {
+            'date': DateIp(),
+            'arrival_time': TimeIp(),
+            'departure_time': TimeIp(),
+        }
 
 
 class ShortestRouteForm(forms.ModelForm):
@@ -38,7 +47,10 @@ class SeatChartForm(forms.ModelForm):
     class Meta:
         model = SeatChart
         exclude = ('updated_by', 'total_seats',)
-        widgets = {'date': DateIp()}
+        widgets = {
+            'date': DateIp(),
+
+        }
 
     def __init__(self, *args, **kwargs):
         super(SeatChartForm, self).__init__(*args, *kwargs)
