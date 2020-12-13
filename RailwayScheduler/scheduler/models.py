@@ -74,10 +74,12 @@ class Schedule(models.Model):
 
 
 class TrainLegacy(models.Model):
-    old_train_id = models.PositiveIntegerField()
     train_name = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
     route_id = models.ForeignKey(Route, on_delete=models.SET_NULL, null=True, default=1)
 
     def __str__(self):
         return self.train_name
+
+
+
