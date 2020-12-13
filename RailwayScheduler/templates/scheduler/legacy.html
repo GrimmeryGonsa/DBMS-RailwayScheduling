@@ -1,31 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Legacy</title>
+	<title>Service Trains</title>
+	<style type="text/css">
+		html {
+  box-sizing: border-box;
+  font-size: var(--htmlFontSize);
+  height: 100%;
+  background: url(https://cdn.wallpapersafari.com/3/64/wXQt5L.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+  align-self: center;
+  back
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+table{
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 150%;
+  font-weight: inherit;
+  width: 75%;
+  margin-right: auto;
+  margin-left: auto;
+  line-height: 1.6;
+  position: absolute;
+  bottom: 95px;
+  left: 200px;
+
+}
+ th{
+  background: -webkit-linear-gradient(#090E43 0%,#BFE7E4 100%);
+  -webkit-border-radius: 5px 5px 0 0;
+  border-style: solid;
+  border-color: #EE4C15;
+  border-width: 1px 1px 5px 1px; 
+  font-variant: inherit;
+  color: #020117;
+ }
+tr{
+    opacity: 0.8;
+}
+tr:hover{
+  opacity: 1;
+
+}
+td{
+  text-align: center;
+}
+td:first-child{
+  text-align: left;
+}
+td{
+  color: #1C2833;
+  background-color: #BFE7E4;
+  border:2px;
+  padding: 1%;
+  text-shadow: 1px 1px #090E43;
+  border:solid 2px #0B5345;
+}
+
+/*Logout*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+	color: #210221;
+	font-size:250%;
+	align-self: center;
+	font-weight: bold;
+	font-family: "Lucida Console", "Courier New", monospace;
+	position: absolute;
+	top: 100px;
+	right: 450px;
+	 text-shadow: 1px 1px #020D36; 
+	  
+}
+
+
+	</style>
+
 </head>
 <body>
- List of out of service train....
+
+<h1 class="ml3">List Of Out of Service Trains:</h1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 <table>
-    <thead>
-    <tr>
-    <td>Old Train id </td>
-    <td> Train name </td>
-    <td> Destination </td>
-    <td> Route </td>
-    </tr>
-    </thead>
-    <TBODY>
-    {% for train in object_list %}
+	<thead>
+		<tr>
+			<th>Old Train ID</th>
+			<th>Train Name</th>
+			<th>Destination</th>
+			<th>Route</th>
+		</tr>
+	</thead>
+	<tbody>
+			{% for train in object_list %}
     <tr>
     <td>{{train.old_train_id}}</td>
     <td>{{train.train_name}}</td>
     <td>{{train.destination}}</td>
     <td>{{train.route_id}}</td>
     </tr>
-    {% endfor %}
-    </TBODY>
+			{% endfor %}
+
+		</tr>
+	</tbod>
 </table>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<script type="text/javascript">
+	// Wrap every letter in a span
+var textWrapper = document.querySelector('.ml3');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml3 .letter',
+    opacity: [0,1],
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: (el, i) => 150 * (i+1)
+  }).add({
+    targets: '.ml3',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+</script>
 </body>
 </html>
